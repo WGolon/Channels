@@ -1,5 +1,6 @@
 const path = require('path');
 
+const cors = require('@koa/cors');
 const fs = require('fs');
 const Koa = require('koa');
 const koaStatic = require('koa-static');
@@ -29,7 +30,7 @@ async function runServer() {
         const data = fs.readFileSync(path.join(__dirname, 'channels.json'), 'utf8');
         ctx.body = JSON.parse(data);
     })
-
+    app.use(cors());
     app.use(koaStatic(path.join(__dirname, '..', 'src')));
     app.use(router.routes())
        .use(router.allowedMethods());
