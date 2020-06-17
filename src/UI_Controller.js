@@ -38,6 +38,24 @@ const updateUI = (dataToDisplay) => {
     
         content.insertAdjacentHTML('beforeend', markup);
     }
+    setLinkListeners();
+
+}
+
+const setLinkListeners = () => {
+    let links = [...document.querySelectorAll('a')];
+    links.forEach(el => {
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
+            let src = el.getAttribute('href');
+            const timeStamp = new Date().toISOString();
+            src +=`?utm_stamp=${timeStamp}`;
+            window.open(
+                src,
+                '_blank' 
+              );
+        })
+    })
 }
 
 export default updateUI;

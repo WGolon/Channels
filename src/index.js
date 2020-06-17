@@ -3,44 +3,39 @@ import axios from 'axios';
 import updateUI from './UI_Controller.js';
 
 const url = 'http://localhost:3000/';
+
 let data = [];
 
-function addStamp () {
-    e.preventDefault();
-    let src = this.src;
-    
-    src += `?utm_stamp=`
-    window.location.href = src;
-}
+let arrToDisplay = [];
+
+
+const inputs = [...document.querySelectorAll('input.choice')];
+const inputText = document.querySelector('.filter__input');
+const labels = [...document.querySelectorAll('.choice__label')];
+const clear = document.querySelector('.btn__clear');
+const sort = document.querySelector('.btn__sort');
+
+
+
 // Request
 axios.get(`${url}api/data`)
     .then(response => {
-        const copied = JSON.parse(JSON.stringify(response.data))
+        if(!response || !response.data) return
+        const copied = JSON.parse(JSON.stringify(response.data));
+        console.log(copied);
         validateNumbers(copied);
         updateUI(data);
-        setListeners();
     })
     .catch(err => {
         console.log(err);
     })
 
 
-const setListeners = () => {
-    let links = [...document.querySelectorAll('a')];
-    links.forEach(el => {
-        el.addEventListener('click', (e) => {
-            e.preventDefault();
-            let src = el.getAttribute('href');
-            const timeStamp =''+ new Date().toISOString();
-            src +=`?utm_stamp=${timeStamp}`;
-            window.open(
-                src,
-                '_blank' 
-              );
-        })
+const setRadioInputListeners = () => {
+    labels.forEach(el=> {
+        el.addEventListener('click', radioSorting)
     })
 }
-
 
 const validateNumbers = (copied) => {
     data = copied.map(el => {
@@ -51,3 +46,42 @@ const validateNumbers = (copied) => {
         return el;
     })
 }
+
+const radioSorting = (e) => {
+    const targeted = e.target.getAttribute('data');
+    const desc = true;
+    arrToDisplay = JSON.parse(JSON.stringify(data));
+    sortBy(arrToDisplay, targeted);
+}
+
+const sortBy = (arr, sort) => {
+    if(sort==='title') {
+        arr.sort((a,b) => {
+            return a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1;
+        })
+    }else {
+        arr.sort((a,b) => {
+            return +(a.statistics[sort]) < +(b.statistics[sort]) ? 1 : -1;
+        });
+    }
+    updateUI(arr);
+}
+
+const sortOrder = () => {
+    if(!arrToDisplay[0]) return;
+    arrToDisplay.reverse();
+    updateUI(arrToDisplay);
+}
+
+setRadioInputListeners();
+
+clear.addEventListener('click', () => {
+    inputText.value = '';
+    inputs.forEach( el => {
+        el.checked = false;
+    })
+    arrToDisplay = [];
+    updateUI(data);
+})
+
+sort.addEventListener('click', sortOrder);

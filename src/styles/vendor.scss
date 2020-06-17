@@ -245,7 +245,7 @@ button:-moz-focusring {
 .wrapper__main {
   order: 3;
 }
-
+//Moje CSSSSSSSSKI
 .js-content {
   display: grid;
   margin-top: .5em;
@@ -253,6 +253,20 @@ button:-moz-focusring {
   //grid-template-rows: repeat(4, 1fr);
   grid-auto-flow: row;
   grid-gap: .7em;
+}
+
+.wrapper__header {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+.js-logo {
+  max-width: 50px;
+}
+
+.header {
+  margin: 0;
+  line-height: 31px;
 }
 
 // tile section /////////////////////////////////////////////
@@ -365,6 +379,8 @@ button:-moz-focusring {
 
 @media only screen and (min-width: 768px) {
   .wrapper {
+    margin: 0 auto;
+    max-width: 1680px;
     display: grid;
     -ms-grid-columns: 300px 1fr;
     grid-template-columns: 300px 1fr;

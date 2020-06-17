@@ -6,7 +6,8 @@
     </head>
     <body class="wrapper">
         <header class="wrapper__header">
-            <h1 class="header"><span class="header__js-logo"></span> Channels</h1>
+            <img src="./images/JS-logo.png" alt="" class="js-logo">
+            <h1 class="header"> Channels</h1>
         </header>
         <main class="wrapper__main js-content">
         </main>
@@ -21,22 +22,23 @@
                 <ul class="sort__options">
                     <li>
                         <input class="choice choice--radio" name="sort" type="radio" id="sort-title">
-                        <label class="choice__label" for="sort-title">title</label>
+                        <label class="choice__label" data='title' for="sort-title">title</label>
                     </li>
                     <li>
                         <input class="choice choice--radio" name="sort" type="radio" id="sort-subscribers">
-                        <label class="choice__label" for="sort-subscribers">subscribers</label>
+                        <label class="choice__label" data='subscriberCount' for="sort-subscribers">subscribers</label>
                     </li>
                     <li>
                         <input class="choice choice--radio" name="sort" type="radio" id="sort-videos">
-                        <label class="choice__label" for="sort-videos">videos</label>
+                        <label class="choice__label" data='videoCount' for="sort-videos">videos</label>
                     </li>
                     <li>
                         <input class="choice choice--radio" name="sort" type="radio" id="sort-views">
-                        <label class="choice__label" for="sort-views">views</label>
+                        <label class="choice__label" data='viewCount' for="sort-views">views</label>
                     </li>
                 </ul>
-                <button class="button">Clear</button>
+                <button class="button btn__clear">Clear</button>
+                <button class="button btn__sort">Sort</button>
             </div>
         </aside>
     </body>
