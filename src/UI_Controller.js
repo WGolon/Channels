@@ -1,7 +1,7 @@
 const content = document.querySelector('.js-content');
 const filter = document.querySelector('.filter__suggestions');
 
-export const updateUI = (dataToDisplay) => {
+export const updateChannels = (dataToDisplay) => {
 
     content.innerHTML = '';
 
@@ -13,7 +13,7 @@ export const updateUI = (dataToDisplay) => {
             return (+el).toLocaleString('en');
         });
         const markup = `
-        <a href="${item.customUrl}" target="_blank" class="tile-4 tile">
+        <a href="${item.customUrl}" target="_blank" class="tile">
         <div class="wrapper__image">
             <img src="${item.thumbnails.medium.url}" alt="" class="image">
         </div>
@@ -43,7 +43,7 @@ export const updateUI = (dataToDisplay) => {
 
 }
 
-export const updateInpt = (suggestions) => {
+export const updateSuggestions = (suggestions) => {
     if(suggestions.length < 0) return;
     filter.innerHTML = '';
     for(const suggestion of suggestions){
@@ -51,6 +51,10 @@ export const updateInpt = (suggestions) => {
         filter.insertAdjacentHTML('afterbegin', markup);
     }
     return suggestions = [...document.querySelectorAll('.suggestion')];
+}
+
+export const fetchErrorHandler = () => {
+
 }
 
 const setLinkListeners = () => {

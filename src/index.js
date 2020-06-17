@@ -1,13 +1,12 @@
 import './styles/vendor.scss';
 import axios from 'axios';
-import {updateUI, updateInpt} from './UI_Controller.js';
+import moment from 'moment';
+import * as UIController from './UI_Controller.js';
 
+moment.locale('pl');
 const url = 'http://localhost:3000/';
-
 let data = [];
-
 let arrToDisplay = [];
-
 
 const inputs = [...document.querySelectorAll('input.choice')];
 const inputText = document.querySelector('.filter__input');
@@ -17,27 +16,17 @@ const sort = document.querySelector('.btn__sort');
 const filter = document.querySelector('.filter__suggestions');
 const body = document.querySelector('body');
 
-
-
-
 // Request
 axios.get(`${url}api/data`)
     .then(response => {
         if(!response || !response.data) return
         const copied = JSON.parse(JSON.stringify(response.data));
         validateNumbers(copied);
-        updateUI(data);
+        UIController.updateChannels(data);
     })
     .catch(err => {
         console.log(err);
     })
-
-
-const setRadioInputListeners = () => {
-    labels.forEach(el=> {
-        el.addEventListener('click', radioSorting)
-    })
-}
 
 const validateNumbers = (copied) => {
     data = copied.map(el => {
@@ -50,7 +39,7 @@ const validateNumbers = (copied) => {
     arrToDisplay = JSON.parse(JSON.stringify(data));
 }
 
-const radioSorting = (e) => {
+const radioSortingHandler = (e) => {
     const targeted = e.target.getAttribute('data');
     const desc = true;
     arrToDisplay = JSON.parse(JSON.stringify(data));
@@ -76,27 +65,11 @@ const sortOrder = () => {
     filterBy();
 }
 
-
-setRadioInputListeners();
-
-clear.addEventListener('click', () => {
-    inputText.value = '';
-    inputs.forEach( el => {
-        el.checked = false;
-    })
-    arrToDisplay = JSON.parse(JSON.stringify(data));
-    updateUI(arrToDisplay);
-})
-
-// const mark = `
-
-// `
-
 const filterBy = () => {
     const filterKey = inputText.value.toLowerCase();
     filter.innerHTML = '';
     if(!filterKey) {
-        return updateUI(arrToDisplay)
+        return UIController.updateChannels(arrToDisplay)
     };
     let suggestionMatches = [];
     let filteredArr = arrToDisplay.filter( (el) => {
@@ -105,9 +78,9 @@ const filterBy = () => {
     suggestionMatches = filteredArr.map(el => {
         return el.title;
     })
-    const suggestions = updateInpt(suggestionMatches);
+    const suggestions = UIController.updateSuggestions(suggestionMatches);
     onSuggestionClick(suggestions);
-    updateUI(filteredArr);
+    UIController.updateChannels(filteredArr);
 }
 
 function onSuggestionClick(suggestions) {
@@ -121,9 +94,42 @@ function onSuggestionClick(suggestions) {
     
 }
 
+//Event listeners
 sort.addEventListener('click', sortOrder);
 inputText.addEventListener('keyup', filterBy);
 body.addEventListener('click', (e) => {
     if(e.target.parentNode !== filter) filter.innerHTML= '';
 })
+clear.addEventListener('click', () => {
+    inputText.value = '';
+    inputs.forEach( el => {
+        el.checked = false;
+    })
+    arrToDisplay = JSON.parse(JSON.stringify(data));
+    UIController.updateChannels(arrToDisplay);
+})
+labels.forEach(el=> {
+    el.addEventListener('click', radioSortingHandler)
+})
 
+//Local Storage Handler
+
+function localStorageHandler () {
+    let visitData = JSON.parse(localStorage.getItem('visitData'));
+    const date = moment().format('ll');
+    if(visitData) {
+        visitData.lastVisit = visitData.currentVisit;
+        visitData.currentVisit = date;
+        visitData.visitCounter++;
+        visitData = JSON.stringify(visitData);
+    }else {
+        let obj = {
+            lastVisit: '',
+            currentVisit: date,
+            visitCounter: 1,
+        }
+        visitData = JSON.stringify(obj);
+    }
+    localStorage.setItem('visitData', visitData);
+}
+localStorageHandler();
