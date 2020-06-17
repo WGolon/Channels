@@ -196,9 +196,10 @@ button:-moz-focusring {
   text-size-adjust: 100%;
   width: 100%;
 }
+
 .filter {
   background: #fff;
-  padding: 8px;
+  padding: 8px 8px 0px 8px;
 }
 .filter__input:focus,
 .filter__input:hover {
@@ -268,7 +269,20 @@ button:-moz-focusring {
   margin: 0;
   line-height: 31px;
 }
+.filter__suggestions {
+  max-width: 100%;
+}
 
+.suggestion {
+  max-width: 100%;
+  cursor: pointer;
+  font-size: 100%;
+  margin: 0;
+  padding: 8px;
+  background-color: rgb(233, 233, 233);
+  border: 1px solid #767676;
+  border-top: none;
+}
 // tile section /////////////////////////////////////////////
 .tile {
   color: #000;
@@ -361,6 +375,7 @@ button:-moz-focusring {
   }
 
   .wrapper__filter {
+    z-index: 1;
     order: 2;
     -ms-grid-column: 2;
     -ms-grid-row: 2;

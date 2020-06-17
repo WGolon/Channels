@@ -1,6 +1,6 @@
 import './styles/vendor.scss';
 import axios from 'axios';
-import updateUI from './UI_Controller.js';
+import {updateUI, updateInpt} from './UI_Controller.js';
 
 const url = 'http://localhost:3000/';
 
@@ -14,6 +14,9 @@ const inputText = document.querySelector('.filter__input');
 const labels = [...document.querySelectorAll('.choice__label')];
 const clear = document.querySelector('.btn__clear');
 const sort = document.querySelector('.btn__sort');
+const filter = document.querySelector('.filter__suggestions');
+const body = document.querySelector('body');
+
 
 
 
@@ -73,6 +76,7 @@ const sortOrder = () => {
     filterBy();
 }
 
+
 setRadioInputListeners();
 
 clear.addEventListener('click', () => {
@@ -80,19 +84,46 @@ clear.addEventListener('click', () => {
     inputs.forEach( el => {
         el.checked = false;
     })
-    arrToDisplay = [];
-    updateUI(data);
+    arrToDisplay = JSON.parse(JSON.stringify(data));
+    updateUI(arrToDisplay);
 })
 
-const filterBy = (e) => {
+// const mark = `
+
+// `
+
+const filterBy = () => {
     const filterKey = inputText.value.toLowerCase();
-    if(!filterKey) updateUI(arrToDisplay);
+    filter.innerHTML = '';
+    if(!filterKey) {
+        return updateUI(arrToDisplay)
+    };
+    let suggestionMatches = [];
     let filteredArr = arrToDisplay.filter( (el) => {
         return el.title.toLowerCase().includes(filterKey);
     })
+    suggestionMatches = filteredArr.map(el => {
+        return el.title;
+    })
+    const suggestions = updateInpt(suggestionMatches);
+    onSuggestionClick(suggestions);
     updateUI(filteredArr);
+}
+
+function onSuggestionClick(suggestions) {
+    suggestions.forEach( el => {
+        el.addEventListener('click', (e) => {
+            inputText.value =  e.target.textContent.trim();
+            filterBy();
+            filter.innerHTML = '';
+        })
+    })
+    
 }
 
 sort.addEventListener('click', sortOrder);
 inputText.addEventListener('keyup', filterBy);
+body.addEventListener('click', (e) => {
+    if(e.target.parentNode !== filter) filter.innerHTML= '';
+})
 

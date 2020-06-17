@@ -1,6 +1,7 @@
 const content = document.querySelector('.js-content');
+const filter = document.querySelector('.filter__suggestions');
 
-const updateUI = (dataToDisplay) => {
+export const updateUI = (dataToDisplay) => {
 
     content.innerHTML = '';
 
@@ -42,6 +43,16 @@ const updateUI = (dataToDisplay) => {
 
 }
 
+export const updateInpt = (suggestions) => {
+    if(suggestions.length < 0) return;
+    filter.innerHTML = '';
+    for(const suggestion of suggestions){
+        const markup = `<div class="suggestion"> ${suggestion} </div>`
+        filter.insertAdjacentHTML('afterbegin', markup);
+    }
+    return suggestions = [...document.querySelectorAll('.suggestion')];
+}
+
 const setLinkListeners = () => {
     let links = [...document.querySelectorAll('a')];
     links.forEach(el => {
@@ -58,4 +69,3 @@ const setLinkListeners = () => {
     })
 }
 
-export default updateUI;
