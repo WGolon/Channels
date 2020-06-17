@@ -22,7 +22,6 @@ axios.get(`${url}api/data`)
     .then(response => {
         if(!response || !response.data) return
         const copied = JSON.parse(JSON.stringify(response.data));
-        console.log(copied);
         validateNumbers(copied);
         updateUI(data);
     })
@@ -45,6 +44,7 @@ const validateNumbers = (copied) => {
         el.statistics.viewCount = viewCount.replace(/[ ,.]/g, "");
         return el;
     })
+    arrToDisplay = JSON.parse(JSON.stringify(data));
 }
 
 const radioSorting = (e) => {
@@ -64,13 +64,13 @@ const sortBy = (arr, sort) => {
             return +(a.statistics[sort]) < +(b.statistics[sort]) ? 1 : -1;
         });
     }
-    updateUI(arr);
+    filterBy();
 }
 
 const sortOrder = () => {
     if(!arrToDisplay[0]) return;
     arrToDisplay.reverse();
-    updateUI(arrToDisplay);
+    filterBy();
 }
 
 setRadioInputListeners();
@@ -84,4 +84,15 @@ clear.addEventListener('click', () => {
     updateUI(data);
 })
 
+const filterBy = (e) => {
+    const filterKey = inputText.value.toLowerCase();
+    if(!filterKey) updateUI(arrToDisplay);
+    let filteredArr = arrToDisplay.filter( (el) => {
+        return el.title.toLowerCase().includes(filterKey);
+    })
+    updateUI(filteredArr);
+}
+
 sort.addEventListener('click', sortOrder);
+inputText.addEventListener('keyup', filterBy);
+
