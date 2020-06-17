@@ -8,6 +8,7 @@ const url = 'http://localhost:3000/';
 let data = [];
 let arrToDisplay = [];
 
+// Selectors
 const inputs = [...document.querySelectorAll('input.choice')];
 const inputText = document.querySelector('.filter__input');
 const labels = [...document.querySelectorAll('.choice__label')];
@@ -15,6 +16,8 @@ const clear = document.querySelector('.btn__clear');
 const sort = document.querySelector('.btn__sort');
 const filter = document.querySelector('.filter__suggestions');
 const body = document.querySelector('body');
+const theme = document.querySelector('.btn__theme');
+const html = document.querySelector('html');
 
 // Request
 axios.get(`${url}api/data`)
@@ -25,9 +28,10 @@ axios.get(`${url}api/data`)
         UIController.updateChannels(data);
     })
     .catch(err => {
-        console.log(err);
+        console.log(new Error(err));
     })
 
+// Main logic
 const validateNumbers = (copied) => {
     data = copied.map(el => {
         let {subscriberCount, videoCount, viewCount} = el.statistics;
@@ -110,6 +114,11 @@ clear.addEventListener('click', () => {
 })
 labels.forEach(el=> {
     el.addEventListener('click', radioSortingHandler)
+})
+theme.addEventListener('click', () => {
+    let color = theme.textContent === 'White' ? 'Black': 'White';
+    theme.textContent = color;
+    html.setAttribute('data-theme', color)
 })
 
 //Local Storage Handler

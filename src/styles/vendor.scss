@@ -4,6 +4,21 @@ html {
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
 }
+html[data-theme='Black'] {
+  --main-wrapper-bg: #000;
+  --tile-bg: rgb(37, 37, 37);
+  --tile-color: rgb(201, 201, 201);
+  --choice-color: rgb(201, 201, 201);
+  --filter-bg: rgb(201, 201, 201);
+}
+
+html[data-theme='White'] {
+  --main-wrapper-bg: #eceff1;
+  --tile-bg: #fff;
+  --tile-color: #000;
+  --choice-color: #222;
+  --filter-bg: #fff;
+}
 
 body {
   margin: 0;
@@ -101,7 +116,7 @@ button:-moz-focusring {
   -ms-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: 100%;
-  color: #222;
+  color: var(-choice-color);
   cursor: pointer;
   display: inline-block;
   font-size: 16px;
@@ -182,7 +197,7 @@ button:-moz-focusring {
   -webkit-appearance: none;
   -webkit-text-size-adjust: 100%;
   appearance: none;
-  background-color: #fff;
+  background-color: var(--filter-bg);
   border: 1px solid #aaa;
   border-radius: 2px;
   box-sizing: border-box;
@@ -198,7 +213,7 @@ button:-moz-focusring {
 }
 
 .filter {
-  background: #fff;
+  background: var(--tile-bg);
   padding: 8px 8px 8px 8px;
 }
 .filter__input:focus,
@@ -208,8 +223,9 @@ button:-moz-focusring {
 }
 
 .sort {
-  background: #fff;
+  background: var(--tile-bg);
   padding: 10px;
+  color: var(--tile-color);
 }
 
 .sort__options {
@@ -229,7 +245,7 @@ button:-moz-focusring {
   position: relative;
   margin: 0 auto;
   font-family: 'Lato', sans-serif;
-  background: #eceff1;
+  background: var(--main-wrapper-bg);
   display: flex;
   flex-flow: column wrap;
 }
@@ -249,7 +265,7 @@ button:-moz-focusring {
 .wrapper__main {
   order: 3;
 }
-//Moje CSSSSSSSSKI
+
 .js-content {
   display: grid;
   margin-top: .5em;
@@ -269,6 +285,7 @@ button:-moz-focusring {
 }
 
 .header {
+  color: var(--tile-color);
   margin: 0;
   line-height: 31px;
 }
@@ -282,20 +299,20 @@ button:-moz-focusring {
   font-size: 100%;
   margin: 0;
   padding: 8px;
-  background-color: rgb(233, 233, 233);
+  background-color: var(--filter-bg);
   border: 1px solid #767676;
   border-top: none;
 }
-// tile section /////////////////////////////////////////////
+
 .tile {
-  color: #000;
+  color: var(--tile-color);
   text-decoration: none;
   display: flex;
   flex-direction: column;
   width: 100%;
   overflow: hidden;
   height: 393px;
-  background-color: #fff;
+  background-color: var(--tile-bg);
   cursor: pointer;
 }
 
@@ -344,6 +361,12 @@ button:-moz-focusring {
 }
 .counter {
   font-weight: 700;
+}
+
+.btn__theme {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 @media only screen and (min-width: 360px) {
@@ -433,9 +456,11 @@ button:-moz-focusring {
     grid-column: 2;
     grid-row: 3;
   }
+
   .tile {
     height: 393px;
    }
+
    .image {
      max-height: 100%;
    }

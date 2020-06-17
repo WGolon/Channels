@@ -53,10 +53,6 @@ export const updateSuggestions = (suggestions) => {
     return suggestions = [...document.querySelectorAll('.suggestion')];
 }
 
-export const fetchErrorHandler = () => {
-
-}
-
 const setLinkListeners = () => {
     let links = [...document.querySelectorAll('a')];
     links.forEach(el => {
