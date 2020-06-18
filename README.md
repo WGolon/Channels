@@ -29,7 +29,7 @@ Za pomocą biblioteki axios pobierane są dane z serwera (channels.json), axios 
 
 Każdy kafelek z kanałem wyświetlany jest dynamicznie i dynamicznie zostaje do niego dopisany eventListener. Po kliknięciu na kafelek wywoływana jest funkcja dodająca na koniec atrybutu href daną utm_stamp= aktualny_czas, a następnie link otwierany jest w nowej karcie.
 
-Dane do LocalStorage trafiają jako obiekt zawierający datę obecnej i ostatniej wizyty jak i licznik odsłon. Jeżeli odwiedzamy stronę pierwszy raz, to tworzona jest nowa dana bez informacji o ostatniej wizycie. Jeżeli dana istnieje, to zostaje pobrana, parsowana, data ostatniej wizyty staje się datą obecnej wizyty, a data obecnej wizyty nadpisywana jest teraźniejszym znakiem czasu i inkrementowany zostaje licznik wizyt. Tak przygotowany obiekt zostaje spowrotem przekonwertowany na format JSON i spowrotem wpisany do localStorage.
+Dane do LocalStorage trafiają jako obiekt zawierający datę obecnej i ostatniej wizyty jak i licznik odsłon. Jeżeli odwiedzamy stronę pierwszy raz, to tworzona jest nowa dana bez informacji o ostatniej wizycie. Jeżeli dana istnieje, to zostaje pobrana, parsowana, data ostatniej wizyty staje się datą obecnej wizyty, a data obecnej wizyty nadpisywana jest teraźniejszym znakiem czasu i inkrementowany zostaje licznik wizyt. Tak przygotowany obiekt zostaje spowrotem przekonwertowany na format JSON i spowrotem wpisany do localStorage. Aktualny czas w zadanym formacie został wygenerowany za pomocą biblioteki moment.js.
 
 Po naciśnięciu przycisku Black/White do atrybutu data-theme w znaczniku html trafia odpowiednio string "Black" lub "White". W arkuszu stylów CSS, stałe przechowujące kolory są odpowiednio nadpisywane nowymi, zawierającymi ciemny bądź jasny kolor.
 
