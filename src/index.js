@@ -29,6 +29,7 @@ axios.get(`${url}api/data`)
     })
     .catch(err => {
         console.log(new Error(err));
+        alert('Sorry for problems, couldn\'t fetch channels data');
     })
 
 // Main logic
@@ -94,7 +95,6 @@ const onSuggestionClick = (suggestions) => {
             filter.innerHTML = '';
         })
     })
-    
 }
 
 //Event listeners
