@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="White">
+<html data-theme="White" lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
@@ -24,20 +24,20 @@
                 <h3 class="sort__header">Sort channels by:</h3>
                 <ul class="sort__options">
                     <li>
-                        <input class="choice choice--radio" name="sort" type="radio" id="sort-title">
-                        <label class="choice__label" data='title' for="sort-title">title</label>
+                        <input class="choice choice--radio"  name="sort" type="radio" id="sort-title">
+                        <label class="choice__label" data-sort-by='title' for="sort-title">title</label>
                     </li>
                     <li>
                         <input class="choice choice--radio" name="sort" type="radio" id="sort-subscribers">
-                        <label class="choice__label" data='subscriberCount' for="sort-subscribers">subscribers</label>
+                        <label class="choice__label" data-sort-by='subscriberCount' for="sort-subscribers">subscribers</label>
                     </li>
                     <li>
-                        <input class="choice choice--radio" name="sort" type="radio" id="sort-videos">
-                        <label class="choice__label" data='videoCount' for="sort-videos">videos</label>
+                        <input class="choice choice--radio" name="sort" type="radio"  id="sort-videos">
+                        <label class="choice__label" data-sort-by='videoCount' for="sort-videos">videos</label>
                     </li>
                     <li>
-                        <input class="choice choice--radio" name="sort" type="radio" id="sort-views">
-                        <label class="choice__label" data='viewCount' for="sort-views">views</label>
+                        <input class="choice choice--radio" name="sort" type="radio"  id="sort-views">
+                        <label class="choice__label" data-sort-by='viewCount'for="sort-views">views</label>
                     </li>
                 </ul>
                 <button class="button btn__clear">Clear</button>

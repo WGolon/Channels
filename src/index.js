@@ -44,8 +44,7 @@ const validateNumbers = (copied) => {
 }
 
 const radioSortingHandler = (e) => {
-    const targeted = e.target.getAttribute('data');
-    const desc = true;
+    const targeted = e.target.getAttribute('data-sort-by');
     arrToDisplay = JSON.parse(JSON.stringify(data));
     sortBy(arrToDisplay, targeted);
 }
@@ -87,7 +86,7 @@ const filterBy = () => {
     UIController.updateChannels(filteredArr);
 }
 
-function onSuggestionClick(suggestions) {
+const onSuggestionClick = (suggestions) => {
     suggestions.forEach( el => {
         el.addEventListener('click', (e) => {
             inputText.value =  e.target.textContent.trim();
