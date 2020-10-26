@@ -2,10 +2,11 @@ import './styles/vendor.scss';
 import axios from 'axios';
 import moment from 'moment';
 import * as UIController from './UI_Controller.js';
+import * as channels from './channels.json'
 
 moment.locale('pl');
 const url = 'http://localhost:3000/';
-let data = [];
+//let data = [];
 let arrToDisplay = [];
 
 // Selectors
@@ -19,18 +20,23 @@ const body = document.querySelector('body');
 const theme = document.querySelector('.btn__theme');
 const html = document.querySelector('html');
 
+
+let data = channels.default;
 // Request
-axios.get(`${url}api/data`)
-    .then(response => {
-        if(!response || !response.data) return
-        const copied = JSON.parse(JSON.stringify(response.data));
-        validateNumbers(copied);
-        UIController.updateChannels(data);
-    })
-    .catch(err => {
-        console.log(new Error(err));
-        alert('Sorry for problems, couldn\'t fetch channels data');
-    })
+// axios.get(`${url}api/data`)
+//     .then(response => {
+//         if(!response || !response.data) return
+//         const copied = JSON.parse(JSON.stringify(response.data));
+//         validateNumbers(copied);
+//         UIController.updateChannels(data);
+//     })
+//     .catch(err => {
+//         console.log(new Error(err));
+//         alert('Sorry for problems, couldn\'t fetch channels data');
+//     })
+
+    const copied = JSON.parse(JSON.stringify(data));
+
 
 // Main logic
 const validateNumbers = (copied) => {
@@ -43,6 +49,7 @@ const validateNumbers = (copied) => {
     })
     arrToDisplay = JSON.parse(JSON.stringify(data));
 }
+
 
 const radioSortingHandler = (e) => {
     const targeted = e.target.getAttribute('data-sort-by');
@@ -141,3 +148,6 @@ function localStorageHandler () {
     localStorage.setItem('visitData', visitData);
 }
 localStorageHandler();
+
+validateNumbers(copied);
+UIController.updateChannels(data);
