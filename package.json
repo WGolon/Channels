@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "get-port": "4.0.0",
     "koa": "2.5.2",
     "koa-router": "^9.0.1",
